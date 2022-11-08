@@ -9,6 +9,7 @@ import CreateNewProjectModal from '@roid/components/src/Modals/CreateNewProjectM
 const stores: Array<BaseStore<any>> = [];
 
 export type GridHeaderConnectorProps = {
+    title?: string;
     createLabel?: string;
 };
 
@@ -27,12 +28,13 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
     };
 
     connect(): GridHeaderProps {
-        const { createLabel } = this.props;
+        const { createLabel, title } = this.props;
         return {
             searchValue: ProjectsProvider.getProjectsFilters().search,
             onSearch: this.onSearch,
             onCreateClick: this.handleCreateNewProject,
             createLabel: createLabel,
+            title: title,
         };
     }
 }

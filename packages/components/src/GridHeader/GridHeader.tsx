@@ -2,7 +2,7 @@ import React, { Component, createRef, ReactNode } from 'react';
 import styles from './GridHeader.module.scss';
 import { GridHeaderProps, GridHeaderState } from './GridHeader.model';
 import CreateIcon from '@material-ui/icons/Create';
-import { Button, IconButton, TextField } from '@material-ui/core';
+import { Button, IconButton, TextField, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 class GridHeaderComponent extends Component<GridHeaderProps, GridHeaderState> {
@@ -20,11 +20,16 @@ class GridHeaderComponent extends Component<GridHeaderProps, GridHeaderState> {
     };
 
     render(): ReactNode {
-        const { searchValue = '', onCreateClick, createLabel = 'Create New' } = this.props;
+        const { title, searchValue = '', onCreateClick, createLabel = 'Create New' } = this.props;
 
         return (
             <div className={styles.container}>
                 <div className={styles.leftSection}>
+                    {title && (
+                        <Typography variant="h5" className={styles.title}>
+                            {title}
+                        </Typography>
+                    )}
                     <TextField
                         inputRef={this.searchTF}
                         defaultValue={searchValue}

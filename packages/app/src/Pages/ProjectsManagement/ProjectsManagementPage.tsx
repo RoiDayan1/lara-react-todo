@@ -23,7 +23,7 @@ class ProjectsManagementPageComponent extends BasePage<ProjectsManagementPagePro
                 <AppHeaderConnector />
                 <Column className={styles.content}>
                     <Container>
-                        <GridHeaderConnector createLabel={'Create New Project'} />
+                        <GridHeaderConnector title={'Projects'} createLabel={'Create New Project'} />
                     </Container>
                     <div className={styles.grid}>
                         <Container>

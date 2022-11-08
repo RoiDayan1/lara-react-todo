@@ -3,6 +3,7 @@ export type GridHeaderProps = {
     onSearch?: (value: string) => void;
     onCreateClick?: () => void;
     createLabel?: string;
+    title?: string;
 };
 
 export interface GridHeaderState {}
