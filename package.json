@@ -1,14 +1,23 @@
 {
+    "name": "lara-react-todo",
+    "version": "1.0.0",
     "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
     "scripts": {
-        "dev": "vite",
-        "build": "vite build"
+        "bootstrap": "npx lerna bootstrap",
+        "start-app": "lerna run --stream --scope @roid/app start",
+        "start-server": "lerna run --stream --scope @roid/server start",
+        "build-app": "lerna run --stream --scope @roid/app build",
+        "build-server": "lerna run --stream --scope @roid/server build",
+        "build": "yarn build-app && yarn build-server",
+        "start:prod": "lerna run --stream --scope @roid/server start:prod",
+        "format": "prettier --write 'packages/{app,components,models}/src/**/*.{js,jsx,ts,tsx,json,css,scss}'"
     },
     "devDependencies": {
-        "axios": "^1.1.2",
-        "laravel-vite-plugin": "^0.6.0",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
-        "vite": "^3.0.0"
+        "lerna": "^3.22.1",
+        "prettier": "^2.2.1",
+        "typescript": "4.1.5"
     }
 }

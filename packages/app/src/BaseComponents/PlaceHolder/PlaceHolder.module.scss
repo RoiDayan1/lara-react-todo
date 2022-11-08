@@ -1,0 +1,19 @@
+@import '../../index';
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    background-color: white;
+    padding: 5px;
+    text-align: center;
+}

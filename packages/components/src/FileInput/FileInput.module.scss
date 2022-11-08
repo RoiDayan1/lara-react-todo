@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    min-width: 0;
+}
+
+.button {
+    white-space: nowrap;
+}
+
+.files {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.file {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.fileName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

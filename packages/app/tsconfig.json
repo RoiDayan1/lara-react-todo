@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": ".",
+        "baseUrl": ".",
+        "paths": {
+            "@roid/assets/*": ["../assets/*"],
+            "@roid/components/*": ["../components/*"],
+            "@roid/models/*": ["../models/*"]
+        }
+    },
+    "include": ["src", "../../types.d.ts"],
+    "exclude": ["node_modules"]
+}

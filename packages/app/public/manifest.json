@@ -1,0 +1,20 @@
+{
+  "short_name": "RoiD",
+  "name": "RoiDayan",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "logo-colors.webp",
+      "type": "image/webp",
+      "sizes": "234x108"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#007bb3",
+  "background_color": "#ffffff"
+}
