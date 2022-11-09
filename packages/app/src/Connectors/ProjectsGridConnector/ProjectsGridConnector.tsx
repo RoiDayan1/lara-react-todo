@@ -13,6 +13,10 @@ export type ProjectsGridConnectorProps = {};
 class ProjectsGridConnectorComponent extends BaseConnector<ProjectsGridConnectorProps, ProjectsGridProps> {
     readonly component = ProjectsGrid;
 
+    componentWillMount() {
+        ProjectsProvider.fetchSetGetProjects().then();
+    }
+
     handleDeleteProject = (projectId: string) => {
         ModalService.show(VerificationModal, {
             title: 'Delete Project',

@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import BasePage from '../BasePage';
 import styles from './ProjectsManagementPage.module.scss';
 import Column from '../../BaseComponents/Column/Column';
-import ProjectsProvider from '../../Providers/projects/ProjectsProvider';
 import { Container } from '@material-ui/core';
 import AppHeaderConnector from '../../Connectors/AppHeaderConnector/AppHeaderConnector';
 import GridHeaderConnector from '../../Connectors/GridHeaderConnector/GridHeaderConnector';
@@ -13,9 +12,7 @@ export type ProjectsManagementPageProps = {};
 class ProjectsManagementPageComponent extends BasePage<ProjectsManagementPageProps> {
     static defaultProps: Partial<ProjectsManagementPageProps> = {};
 
-    async onLoad() {
-        ProjectsProvider.fetchSetGetProjects().then();
-    }
+    async onLoad() {}
 
     render(): ReactNode {
         return (
@@ -23,7 +20,7 @@ class ProjectsManagementPageComponent extends BasePage<ProjectsManagementPagePro
                 <AppHeaderConnector />
                 <Column className={styles.content}>
                     <Container>
-                        <GridHeaderConnector title={'Projects'} createLabel={'Create New Project'} />
+                        <GridHeaderConnector />
                     </Container>
                     <div className={styles.grid}>
                         <Container>

@@ -3,14 +3,17 @@ import ToasterService from '../../Services/ToasterService';
 import { NewProject, Project } from '@roid/models/src/projects.model';
 import ProjectsStore from './Stores/ProjectsStore';
 import ProjectsFiltersStore, { ProjectsFiltersStoreValue } from './Stores/ProjectsFiltersStore';
+import SelectedProjectStore from './Stores/SelectedProjectStore';
 import GetProjectsXhr from './Xhrs/GetProjectsXhr';
 import CreateProjectXhr from './Xhrs/CreateProjectXhr';
 import DeleteProjectXhr from './Xhrs/DeleteProjectXhr';
+import GetProjectXhr from './Xhrs/GetProjectXhr';
 
 class ProjectsProvider {
     static stores = {
         ProjectsStore,
         ProjectsFiltersStore,
+        SelectedProjectStore,
     };
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +34,29 @@ class ProjectsProvider {
         return response;
     }
 
+    static async fetchSetGetProject(id: string) {
+        ProjectsProvider.stores.SelectedProjectStore.setIsLoading(true);
+        const response = await GetProjectXhr.request({ id }).catch((error) =>
+            ToasterService.addXHRError('Fetch Project', error)
+        );
+        if (response) {
+            ProjectsProvider.stores.SelectedProjectStore.set(response);
+        }
+        ProjectsProvider.stores.SelectedProjectStore.setIsLoading(false);
+        return response;
+    }
+
     static async createNewProject(newProject: NewProject) {
+        const response = await CreateProjectXhr.request({ newProject }).catch((error) =>
+            ToasterService.addXHRError('Create New Project', error)
+        );
+        if (response) {
+            ProjectsProvider.fetchSetGetProjects().then();
+            ToasterService.addSuccess('The project was successfully created');
+        }
+    }
+
+    static async fetchProject(newProject: NewProject) {
         const response = await CreateProjectXhr.request({ newProject }).catch((error) =>
             ToasterService.addXHRError('Create New Project', error)
         );
@@ -58,8 +83,12 @@ class ProjectsProvider {
         return ProjectsProvider.stores.ProjectsStore.value();
     }
 
+    static getSelectedProject() {
+        return ProjectsProvider.stores.SelectedProjectStore.value();
+    }
+
     static setProjects(projects: Array<Project>) {
-        ProjectsProvider.stores.ProjectsStore.update(projects);
+        ProjectsProvider.stores.ProjectsStore.set(projects);
     }
 
     static removeProject(projectId: string) {
@@ -80,7 +109,7 @@ class ProjectsProvider {
     }
 
     static setProjectsFilters(projectsFilters: ProjectsFiltersStoreValue) {
-        ProjectsProvider.stores.ProjectsFiltersStore.update(projectsFilters);
+        ProjectsProvider.stores.ProjectsFiltersStore.set(projectsFilters);
     }
 
     static clearProjectsFilters() {

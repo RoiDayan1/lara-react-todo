@@ -1,21 +1,18 @@
 import React, { ReactNode } from 'react';
 import BasePage from '../../BasePage';
-import styles from './ProjectTodosPage.module.scss';
+import styles from './ProjectTasksPage.module.scss';
 import Column from '../../../BaseComponents/Column/Column';
-import ProjectsProvider from '../../../Providers/projects/ProjectsProvider';
 import { Container } from '@material-ui/core';
 import AppHeaderConnector from '../../../Connectors/AppHeaderConnector/AppHeaderConnector';
 import GridHeaderConnector from '../../../Connectors/GridHeaderConnector/GridHeaderConnector';
 import ProjectsGridConnector from '../../../Connectors/ProjectsGridConnector/ProjectsGridConnector';
 
-export type ProjectTodosPageProps = {};
+export type ProjectTasksPageProps = {};
 
-class ProjectTodosPageComponent extends BasePage<ProjectTodosPageProps> {
-    static defaultProps: Partial<ProjectTodosPageProps> = {};
+class ProjectTasksPageComponent extends BasePage<ProjectTasksPageProps> {
+    static defaultProps: Partial<ProjectTasksPageProps> = {};
 
-    async onLoad() {
-        ProjectsProvider.fetchSetGetProjects().then();
-    }
+    async onLoad() {}
 
     render(): ReactNode {
         return (
@@ -23,7 +20,7 @@ class ProjectTodosPageComponent extends BasePage<ProjectTodosPageProps> {
                 <AppHeaderConnector />
                 <Column className={styles.content}>
                     <Container>
-                        <GridHeaderConnector title={'Projects'} createLabel={'Create New Project'} />
+                        <GridHeaderConnector />
                     </Container>
                     <div className={styles.grid}>
                         <Container>
@@ -36,5 +33,5 @@ class ProjectTodosPageComponent extends BasePage<ProjectTodosPageProps> {
     }
 }
 
-const ProjectTodosPage = ProjectTodosPageComponent;
-export default ProjectTodosPage;
+const ProjectTasksPage = ProjectTasksPageComponent;
+export default ProjectTasksPage;

@@ -3,23 +3,23 @@ import { Project } from '@roid/models/src/projects.model';
 import { plainToInstance } from 'class-transformer';
 
 interface Args {
-    search?: string;
+    id: string;
 }
 
-class GetProjectsXhr extends BaseXhr<Project[]> {
-    endpoint = '/projects';
+class GetProjectXhr extends BaseXhr<Project> {
+    endpoint = '/projects/{id}';
     method = XhrMethod.GET;
 
     request(args: Args) {
-        this.query = {
-            search: args?.search || '',
+        this.params = {
+            id: args.id,
         };
         return this.call();
     }
 
     responseTransform(response: XhrResponse) {
-        return response.data?.map((i: any) => plainToInstance(Project, i)) || [];
+        return plainToInstance(Project, response.data);
     }
 }
 
-export default new GetProjectsXhr();
+export default new GetProjectXhr();

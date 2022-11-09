@@ -2,6 +2,7 @@ import { createBrowserHistory } from 'history';
 import { objToUrlQueryString } from '../Utils/url';
 import { ComponentType, lazy, LazyExoticComponent } from 'react';
 import { isString } from 'lodash';
+import { RouteComponentProps } from 'react-router';
 
 export interface NavigationOptions {
     inNewTab?: boolean;
@@ -12,9 +13,14 @@ export interface NavigationOptions {
 
 class NavigationService {
     static history = createBrowserHistory();
+    static routeProps: RouteComponentProps;
 
-    static get currentRoutePath() {
-        return NavigationService.history.location.pathname;
+    static get routeParams() {
+        return NavigationService.routeProps.match.params as { [key: string]: any };
+    }
+
+    static routeIs(route: Route) {
+        return NavigationService.routeProps.match.path === route.path;
     }
 
     static refresh() {
@@ -66,5 +72,10 @@ export class Routes {
     static ProjectsManagement: Route = {
         path: '/projects-management',
         component: lazy(() => import('../Pages/ProjectsManagement/ProjectsManagementPage') as any),
+    };
+
+    static ProjectTasks: Route = {
+        path: '/projects-management/:id/tasks',
+        component: lazy(() => import('../Pages/ProjectsManagement/ProjectTasks/ProjectTasksPage') as any),
     };
 }

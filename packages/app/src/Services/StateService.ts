@@ -54,7 +54,11 @@ abstract class BaseStore<T> {
         State.dispatch(this.name, cloneDeep(this.state));
     };
 
-    readonly update = (value: T) => {
+    readonly append = (value: T | Partial<T>) => {
+        this.set({ ...this.state.value, value });
+    };
+
+    readonly set = (value: T) => {
         this.state.value = value;
 
         if (this.saveToQuery) {
@@ -76,7 +80,7 @@ abstract class BaseStore<T> {
     };
 
     readonly reset = () => {
-        this.update(this.initialValue);
+        this.set(this.initialValue);
         return this.value();
     };
 }
