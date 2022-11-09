@@ -1,10 +1,6 @@
 import React, { Component, createRef, ReactNode } from 'react';
 import styles from './CreateNewProjectModal.module.scss';
-import {
-    CreateNewProjectModalProps,
-    CreateNewProjectModalState,
-    CreateNewProjectModalStateError,
-} from './CreateNewProjectModal.model';
+import { CreateNewProjectModalProps, CreateNewProjectModalState } from './CreateNewProjectModal.model';
 import { TextField } from '@material-ui/core';
 import BaseModal from '../BaseModal';
 import { BaseModalButton } from '../BaseModal.model';
@@ -17,7 +13,7 @@ class CreateNewProjectModalComponent extends Component<
     // it's better to use some validation library
     isValidForm: boolean = false;
     validateForm = () => {
-        const errors: CreateNewProjectModalStateError = {};
+        const errors: CreateNewProjectModalState['errors'] = {};
 
         const name = this.nameTF.current?.value || '';
         if (!name) errors.name = 'Name is required';

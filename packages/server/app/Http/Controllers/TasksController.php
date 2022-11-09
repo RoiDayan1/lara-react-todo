@@ -41,8 +41,8 @@ class TasksController extends Controller
             'description' => 'string',
             'state' => 'string|in:Todo,Done',
             'views' => 'integer',
-            'project_id' => 'required|exists:projects',
-            'user_id' => 'required|exists:users',
+            'project_id' => 'required|exists:projects,id',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $task = Task::query()->create($validated);
@@ -74,8 +74,8 @@ class TasksController extends Controller
             'description' => 'string',
             'state' => 'string|in:Todo,Done',
             'views' => 'integer',
-            'project_id' => 'exists:projects',
-            'user_id' => 'exists:users',
+            'project_id' => 'exists:projects,id',
+            'user_id' => 'exists:users,id',
         ]);
 
         $task->update($validated);

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import 'reflect-metadata';
 import 'fontsource-roboto';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';

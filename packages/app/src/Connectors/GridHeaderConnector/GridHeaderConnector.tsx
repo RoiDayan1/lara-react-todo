@@ -6,6 +6,8 @@ import ModalService from '../../Services/ModalService';
 import ProjectsProvider from '../../Providers/projects/ProjectsProvider';
 import CreateNewProjectModal from '@roid/components/src/Modals/CreateNewProjectModal/CreateNewProjectModal';
 import NavigationService, { Routes } from '../../Services/NavigationService';
+import TasksProvider from '../../Providers/tasks/TasksProvider';
+import CreateNewTaskModal from '@roid/components/src/Modals/CreateNewTaskModal/CreateNewTaskModal';
 
 const stores: Array<BaseStore<any>> = [ProjectsProvider.stores.SelectedProjectStore];
 
@@ -17,7 +19,10 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
     componentWillMount() {
         if (NavigationService.routeIs(Routes.ProjectTasks)) {
             const projectId = NavigationService.routeParams.id;
-            ProjectsProvider.fetchSetGetProject(projectId).then();
+            if (projectId !== ProjectsProvider.getSelectedProject()?.id) {
+                ProjectsProvider.clearSelectedProject();
+                ProjectsProvider.fetchSetGetProject(projectId).then();
+            }
         }
     }
 
@@ -26,10 +31,18 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
         await ProjectsProvider.fetchSetGetProjects();
     };
 
-    handleCreateNewProject = () => {
-        ModalService.show(CreateNewProjectModal, {
-            createNewProject: ProjectsProvider.createNewProject,
-        });
+    handleOnCreateClick = () => {
+        if (NavigationService.routeIs(Routes.ProjectsManagement)) {
+            ModalService.show(CreateNewProjectModal, {
+                createNewProject: ProjectsProvider.createNewProject,
+            });
+        } else if (NavigationService.routeIs(Routes.ProjectTasks)) {
+            const projectId = NavigationService.routeParams.id;
+            ModalService.show(CreateNewTaskModal, {
+                projectId,
+                createNewTask: TasksProvider.createNewTask,
+            });
+        }
     };
 
     getTitle = () => {
@@ -49,7 +62,7 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
         return {
             searchValue: ProjectsProvider.getProjectsFilters().search,
             onSearch: this.onSearch,
-            onCreateClick: this.handleCreateNewProject,
+            onCreateClick: this.handleOnCreateClick,
             createLabel: this.getCreateLabel(),
             title: this.getTitle(),
         };

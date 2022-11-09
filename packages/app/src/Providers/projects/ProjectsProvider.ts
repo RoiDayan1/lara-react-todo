@@ -79,12 +79,21 @@ class ProjectsProvider {
     }
 
     //////////////////////////////////
-    static getProjects() {
-        return ProjectsProvider.stores.ProjectsStore.value();
-    }
 
     static getSelectedProject() {
         return ProjectsProvider.stores.SelectedProjectStore.value();
+    }
+
+    static setSelectedProject(project: Project) {
+        ProjectsProvider.stores.SelectedProjectStore.set(project);
+    }
+
+    static clearSelectedProject() {
+        return ProjectsProvider.stores.SelectedProjectStore.reset();
+    }
+
+    static getProjects() {
+        return ProjectsProvider.stores.ProjectsStore.value();
     }
 
     static setProjects(projects: Array<Project>) {
