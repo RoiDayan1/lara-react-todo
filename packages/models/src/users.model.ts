@@ -2,10 +2,10 @@ import { Expose } from 'class-transformer';
 
 export class NewUser {
     @Expose({ name: 'name' })
-    name!: string;
+    name?: string;
 
     @Expose({ name: 'email' })
-    email!: string;
+    email?: string;
 }
 
 export class User {

@@ -4,6 +4,7 @@ import BaseStore from '../Services/StateService';
 
 export type BaseConnectorProps = {
     style?: CSSProperties;
+    className?: string;
 };
 
 abstract class BaseConnectorComponent<P = {}, C = {}> extends Component<BaseConnectorProps & P & Partial<C>> {
@@ -19,10 +20,10 @@ abstract class BaseConnectorComponent<P = {}, C = {}> extends Component<BaseConn
 
     readonly render = (): ReactNode => {
         const { style: _style } = BaseConnectorComponent.defaultProps;
-        const { style } = this.props;
+        const { style, className } = this.props;
         const Comp = this.component;
         return (
-            <div style={{ ..._style, ...style }}>
+            <div className={className} style={{ ..._style, ...style }}>
                 <Comp {...this.connect()} />
             </div>
         );

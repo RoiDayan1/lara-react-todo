@@ -7,4 +7,5 @@ export type CreateNewTaskModalProps = {
 
 export interface CreateNewTaskModalState {
     errors: Partial<{ [key in keyof NewTask]: string }>;
+    userIdSelect?: number;
 }

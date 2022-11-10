@@ -6,6 +6,7 @@ import BaseModal from '../BaseModal';
 import { BaseModalButton } from '../BaseModal.model';
 import { isEmpty } from 'lodash';
 import { TaskState } from '@roid/models/src/tasks.model';
+import EntitySelectConnector from '@roid/app/src/Connectors/EntitySelectConnector/EntitySelectConnector';
 
 class CreateNewTaskModalComponent extends Component<CreateNewTaskModalProps, CreateNewTaskModalState> {
     // it's better to use some validation library
@@ -29,7 +30,7 @@ class CreateNewTaskModalComponent extends Component<CreateNewTaskModalProps, Cre
                 state: TaskState.Todo,
                 views: 1,
                 project_id: this.props.projectId,
-                user_id: 1,
+                user_id: this.state.userIdSelect,
             });
         }
     };
@@ -47,6 +48,7 @@ class CreateNewTaskModalComponent extends Component<CreateNewTaskModalProps, Cre
 
     state: CreateNewTaskModalState = {
         errors: {},
+        userIdSelect: undefined,
     };
 
     render(): ReactNode {
@@ -62,6 +64,11 @@ class CreateNewTaskModalComponent extends Component<CreateNewTaskModalProps, Cre
                         label="Description"
                         error={!!errors.description}
                         helperText={errors.description || ' '}
+                    />
+                    <EntitySelectConnector
+                        value={this.state.userIdSelect}
+                        label="User"
+                        onSelect={(id: number) => this.setState({ userIdSelect: id })}
                     />
                 </div>
             </BaseModal>

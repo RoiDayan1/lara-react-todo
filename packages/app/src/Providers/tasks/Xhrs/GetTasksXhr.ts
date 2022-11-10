@@ -3,7 +3,7 @@ import { Task } from '@roid/models/src/tasks.model';
 import { plainToInstance } from 'class-transformer';
 
 interface Args {
-    project_id?: string;
+    project_id?: number | string;
     search?: string;
 }
 

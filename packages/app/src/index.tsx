@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import 'reflect-metadata';
 import 'fontsource-roboto';
@@ -28,13 +28,19 @@ console.log(
 ///////// App
 //////////////////////////////////////////////////////////////////////////////////////
 const IndexApp = withToastManager((props: { toastManager: ToastManager }) => {
+    const [init, setInit] = useState(false);
+
     const modalManager = useModal();
-    useEffect(() => {
-        ModalService.initModalManager(modalManager);
-        ToasterService.initToastManager(props.toastManager);
-        UsersProvider.fetchSetGetUsers().then();
-    }, []);
-    return <App />;
+
+    if (!init) {
+        (async () => {
+            ModalService.initModalManager(modalManager);
+            ToasterService.initToastManager(props.toastManager);
+            await UsersProvider.fetchSetGetUsers();
+        })().then(() => setInit(true));
+    }
+
+    return init ? <App /> : null;
 });
 
 ReactDOM.render(

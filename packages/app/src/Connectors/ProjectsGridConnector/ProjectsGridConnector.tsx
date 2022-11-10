@@ -13,7 +13,8 @@ export type ProjectsGridConnectorProps = {};
 class ProjectsGridConnectorComponent extends BaseConnector<ProjectsGridConnectorProps, ProjectsGridProps> {
     readonly component = ProjectsGrid;
 
-    componentWillMount() {
+    constructor(props: ProjectsGridConnectorProps) {
+        super(props);
         ProjectsProvider.fetchSetGetProjects().then();
     }
 

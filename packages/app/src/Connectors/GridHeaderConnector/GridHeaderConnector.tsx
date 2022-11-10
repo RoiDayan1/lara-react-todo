@@ -16,7 +16,8 @@ export type GridHeaderConnectorProps = {};
 class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProps, GridHeaderProps> {
     readonly component = GridHeader;
 
-    componentWillMount() {
+    constructor(props: GridHeaderConnectorProps) {
+        super(props);
         if (NavigationService.routeIs(Routes.ProjectTasks)) {
             const projectId = NavigationService.routeParams.id;
             if (projectId !== ProjectsProvider.getSelectedProject()?.id) {

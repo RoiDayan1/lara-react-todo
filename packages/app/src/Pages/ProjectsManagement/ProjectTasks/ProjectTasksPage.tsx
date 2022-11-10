@@ -6,13 +6,18 @@ import { Container } from '@material-ui/core';
 import AppHeaderConnector from '../../../Connectors/AppHeaderConnector/AppHeaderConnector';
 import GridHeaderConnector from '../../../Connectors/GridHeaderConnector/GridHeaderConnector';
 import ProjectsGridConnector from '../../../Connectors/ProjectsGridConnector/ProjectsGridConnector';
+import NavigationService from '../../../Services/NavigationService';
+import TasksProvider from '../../../Providers/tasks/TasksProvider';
 
 export type ProjectTasksPageProps = {};
 
 class ProjectTasksPageComponent extends BasePage<ProjectTasksPageProps> {
     static defaultProps: Partial<ProjectTasksPageProps> = {};
 
-    async onLoad() {}
+    async onLoad() {
+        const projectId = NavigationService.routeParams.id;
+        TasksProvider.setTasksFilters({ project_id: projectId });
+    }
 
     render(): ReactNode {
         return (

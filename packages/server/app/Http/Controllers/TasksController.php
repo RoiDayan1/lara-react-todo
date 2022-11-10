@@ -17,6 +17,7 @@ class TasksController extends Controller
     public function search(Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'project_id' => 'nullable|exists:projects,id',
             'search' => 'nullable|string',
         ]);
 
@@ -24,6 +25,9 @@ class TasksController extends Controller
 
         if (!empty($validated['search'])) {
             $tasks = $tasks->where('description', 'like', "%{$validated['search']}%");
+        }
+        if (!empty($validated['project_id'])) {
+            $tasks = $tasks->where('project_id', '=', $validated['project_id']);
         }
 
         return $this->success($tasks->get());
