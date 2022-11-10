@@ -15,6 +15,7 @@ import ModalProvider, { useModal } from 'mui-modal-provider';
 import ModalService from './Services/ModalService';
 
 import App from './App';
+import UsersProvider from './Providers/users/UsersProvider';
 
 document.title = ConfigService.appName;
 console.log(
@@ -31,7 +32,8 @@ const IndexApp = withToastManager((props: { toastManager: ToastManager }) => {
     useEffect(() => {
         ModalService.initModalManager(modalManager);
         ToasterService.initToastManager(props.toastManager);
-    }, [modalManager, props.toastManager]);
+        UsersProvider.fetchSetGetUsers().then();
+    }, []);
     return <App />;
 });
 

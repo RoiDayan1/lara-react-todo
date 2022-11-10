@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('users')->group(function () {
-    Route::get('/', function () {
-        return "asdasdasd";
-    });
+    Route::get('/', [UsersController::class, 'search']);
 });
 
 Route::prefix('projects')->group(function () {

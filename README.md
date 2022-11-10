@@ -10,6 +10,7 @@ and not just hard coding components to display in the UI.**
 * `git clone https://github.com/RoiDayan1/lara-react-todo.git roid-lara-react-todo`
 * `cd roid-lara-react-todo`
 * `yarn bootstrap`
+* `yarn server-prepare`
 * from roid-lara-react-todo root:
   * console 1: `yarn start-server`
   * console 2: `yarn start-app`

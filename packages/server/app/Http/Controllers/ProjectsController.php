@@ -67,7 +67,7 @@ class ProjectsController extends Controller
     public function update(Request $request, Project $project): JsonResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|unique:projects|max:255',
+            'name' => 'string|unique:projects|max:255',
         ]);
 
         $project->update($validated);
