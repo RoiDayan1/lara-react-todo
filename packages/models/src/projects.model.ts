@@ -7,7 +7,7 @@ export class NewProject {
 
 export class Project {
     @Expose({ name: 'id' })
-    id!: string;
+    id!: number;
 
     @Expose({ name: 'name' })
     name!: string;

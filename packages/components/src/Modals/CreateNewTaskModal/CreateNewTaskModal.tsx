@@ -18,6 +18,9 @@ class CreateNewTaskModalComponent extends Component<CreateNewTaskModalProps, Cre
         if (!description) errors.description = 'Description is required';
         else if (description.length < 5) errors.description = 'Description must be at least 5 characters';
 
+        const user_id = this.state.userIdSelect || '';
+        if (!user_id) errors.user_id = 'User is required';
+
         this.setState({ errors });
         this.isValidForm = isEmpty(errors);
     };
@@ -69,6 +72,8 @@ class CreateNewTaskModalComponent extends Component<CreateNewTaskModalProps, Cre
                         value={this.state.userIdSelect}
                         label="User"
                         onSelect={(id: number) => this.setState({ userIdSelect: id })}
+                        error={!!errors.user_id}
+                        helperText={errors.user_id || ' '}
                     />
                 </div>
             </BaseModal>

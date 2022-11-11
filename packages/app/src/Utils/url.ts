@@ -30,6 +30,13 @@ export function applyParamsToEndpoint(endpoint: string, params: { [key: string]:
     return endpoint;
 }
 
+export function applyParamsToRoute(path: string, params: { [key: string]: string }) {
+    Object.keys(params).forEach((p) => {
+        path = path.replace(`:${p}`, params[p]);
+    });
+    return path;
+}
+
 export function urlQueryStringToObj(str?: string) {
     const urlSearchParams = new URLSearchParams(str || window.location.search);
     const obj = {};

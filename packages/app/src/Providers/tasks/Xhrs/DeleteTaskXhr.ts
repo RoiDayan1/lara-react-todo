@@ -2,7 +2,7 @@ import BaseXhr, { XhrMethod, XhrResponse } from '../../../Services/XhrService';
 import { Task } from '@roid/models/src/tasks.model';
 
 interface Args {
-    id: string;
+    id: number;
 }
 
 class DeleteTaskXhr extends BaseXhr<Task> {

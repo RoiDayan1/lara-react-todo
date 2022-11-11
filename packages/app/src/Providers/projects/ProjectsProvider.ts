@@ -34,7 +34,7 @@ class ProjectsProvider {
         return response;
     }
 
-    static async fetchSetGetProject(id: string) {
+    static async fetchSetGetProject(id: number) {
         ProjectsProvider.stores.SelectedProjectStore.setIsLoading(true);
         const response = await GetProjectXhr.request({ id }).catch((error) =>
             ToasterService.addXHRError('Fetch Project', error)
@@ -66,7 +66,7 @@ class ProjectsProvider {
         }
     }
 
-    static async deleteProject(projectId: string) {
+    static async deleteProject(projectId: number) {
         ProjectsProvider.stores.ProjectsStore.setIsLoading(true);
         const response = await DeleteProjectXhr.request({ id: projectId }).catch((error) =>
             ToasterService.addXHRError('Delete Project', error)
@@ -100,7 +100,7 @@ class ProjectsProvider {
         ProjectsProvider.stores.ProjectsStore.set(projects);
     }
 
-    static removeProject(projectId: string) {
+    static removeProject(projectId: number) {
         const projects = ProjectsProvider.getProjects();
         remove(projects, { id: projectId });
         ProjectsProvider.setProjects(projects || []);

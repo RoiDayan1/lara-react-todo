@@ -48,6 +48,7 @@ class HomeMenuConnectorComponent extends BaseConnector<HomeMenuConnectorProps, H
 
     connect(): HomeMenuProps {
         return {
+            ...this.props,
             accordionSections: this.accordionSections,
         };
     }

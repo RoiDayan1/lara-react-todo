@@ -2,7 +2,7 @@ import BaseXhr, { XhrMethod, XhrResponse } from '../../../Services/XhrService';
 import { Project } from '@roid/models/src/projects.model';
 
 interface Args {
-    id: string;
+    id: number;
 }
 
 class DeleteProjectXhr extends BaseXhr<Project> {

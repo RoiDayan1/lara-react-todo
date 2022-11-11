@@ -5,6 +5,7 @@ import { ProjectsGridProps } from '@roid/components/src/ProjectsGrid/ProjectsGri
 import ProjectsProvider from '../../Providers/projects/ProjectsProvider';
 import ModalService from '../../Services/ModalService';
 import VerificationModal from '@roid/components/src/Modals/VerificationModal/VerificationModal';
+import NavigationService from '../../Services/NavigationService';
 
 const stores: Array<BaseStore<any>> = [ProjectsProvider.stores.ProjectsStore];
 
@@ -18,7 +19,7 @@ class ProjectsGridConnectorComponent extends BaseConnector<ProjectsGridConnector
         ProjectsProvider.fetchSetGetProjects().then();
     }
 
-    handleDeleteProject = (projectId: string) => {
+    handleDeleteProject = (projectId: number) => {
         ModalService.show(VerificationModal, {
             title: 'Delete Project',
             message: 'Are you sure you want to delete this project ?',
@@ -26,11 +27,17 @@ class ProjectsGridConnectorComponent extends BaseConnector<ProjectsGridConnector
         });
     };
 
+    handleClickProject = (projectId: number) => {
+        NavigationService.goToProjectTasks(projectId);
+    };
+
     connect(): ProjectsGridProps {
         return {
+            ...this.props,
             fetchingMore: ProjectsProvider.stores.ProjectsStore.isLoading(),
             projects: ProjectsProvider.getProjects(),
             onDeleteProject: this.handleDeleteProject,
+            onClickProject: this.handleClickProject,
         };
     }
 }

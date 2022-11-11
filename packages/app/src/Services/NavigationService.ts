@@ -1,5 +1,5 @@
 import { createBrowserHistory } from 'history';
-import { objToUrlQueryString } from '../Utils/url';
+import { applyParamsToRoute, objToUrlQueryString } from '../Utils/url';
 import { ComponentType, lazy, LazyExoticComponent } from 'react';
 import { isString } from 'lodash';
 import { RouteComponentProps } from 'react-router';
@@ -9,6 +9,7 @@ export interface NavigationOptions {
     replace?: boolean;
     force?: boolean;
     query?: { [key: string]: any };
+    params?: { [key: string]: any };
 }
 
 class NavigationService {
@@ -27,11 +28,20 @@ class NavigationService {
         NavigationService.history.go(0);
     }
 
-    static goHome(force?: boolean) {
-        NavigationService.goTo(Routes.Root, { force });
+    static goHome(options: NavigationOptions = {}) {
+        NavigationService.goTo(Routes.Root, options);
     }
 
-    static goTo(route: Route | string, options?: NavigationOptions) {
+    static goToProjectsManagement(options: NavigationOptions = {}) {
+        NavigationService.goTo(Routes.ProjectsManagement, options);
+    }
+
+    static goToProjectTasks(projectId: number, options: NavigationOptions = {}) {
+        options.params = { ...options.params, id: projectId };
+        NavigationService.goTo(Routes.ProjectTasks, options);
+    }
+
+    static goTo(route: Route | string, options: NavigationOptions = {}) {
         if (isString(route)) {
             if (/^https?:\/\//i.test(route)) {
                 window.open(route, '_blank');
@@ -39,12 +49,10 @@ class NavigationService {
             return;
         }
 
-        if (
-            NavigationService.history.location.pathname !== route.path ||
-            options?.inNewTab ||
-            options?.force
-        ) {
-            const url = route.path + objToUrlQueryString(options?.query);
+        const path = applyParamsToRoute(route.path, options.params || {});
+
+        if (NavigationService.history.location.pathname !== path || options?.inNewTab || options?.force) {
+            const url = path + objToUrlQueryString(options?.query);
             if (options?.inNewTab) {
                 window.open(url, '_blank');
             } else if (options?.replace) {

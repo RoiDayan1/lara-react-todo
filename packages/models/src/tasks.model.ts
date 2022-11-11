@@ -28,7 +28,7 @@ export class NewTask {
 
 export class Task {
     @Expose({ name: 'id' })
-    id!: string;
+    id!: number;
 
     @Expose({ name: 'description' })
     description!: string;

@@ -3,7 +3,7 @@ import { Project } from '@roid/models/src/projects.model';
 import { plainToInstance } from 'class-transformer';
 
 interface Args {
-    id: string;
+    id: number;
 }
 
 class GetProjectXhr extends BaseXhr<Project> {

@@ -121,7 +121,7 @@ abstract class BaseXhr<T> {
     protected abstract endpoint: string;
     protected abstract method: XhrMethod;
     protected headers: { [key: string]: string } = {};
-    protected params: { [key: string]: string | undefined } = {};
+    protected params: { [key: string]: string | number | undefined } = {};
     protected query: { [key: string]: any } = {};
     protected body: { [key: string]: any } = {};
     protected files: File[] = [];

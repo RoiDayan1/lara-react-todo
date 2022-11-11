@@ -38,7 +38,7 @@ class UsersProvider {
         UsersProvider.stores.UsersStore.set(users);
     }
 
-    static removeUser(userId: string) {
+    static removeUser(userId: number) {
         const users = UsersProvider.getUsers();
         remove(users, { id: userId });
         UsersProvider.setUsers(users || []);

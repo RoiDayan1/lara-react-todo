@@ -19,7 +19,7 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
     constructor(props: GridHeaderConnectorProps) {
         super(props);
         if (NavigationService.routeIs(Routes.ProjectTasks)) {
-            const projectId = NavigationService.routeParams.id;
+            const projectId = Number(NavigationService.routeParams.id);
             if (projectId !== ProjectsProvider.getSelectedProject()?.id) {
                 ProjectsProvider.clearSelectedProject();
                 ProjectsProvider.fetchSetGetProject(projectId).then();
@@ -38,7 +38,7 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
                 createNewProject: ProjectsProvider.createNewProject,
             });
         } else if (NavigationService.routeIs(Routes.ProjectTasks)) {
-            const projectId = NavigationService.routeParams.id;
+            const projectId = Number(NavigationService.routeParams.id);
             ModalService.show(CreateNewTaskModal, {
                 projectId,
                 createNewTask: TasksProvider.createNewTask,
@@ -49,7 +49,7 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
     getTitle = () => {
         if (NavigationService.routeIs(Routes.ProjectsManagement)) return 'Projects';
         if (NavigationService.routeIs(Routes.ProjectTasks))
-            return ProjectsProvider.getSelectedProject()?.name;
+            return ProjectsProvider.getSelectedProject()?.name + ' tasks';
         return '';
     };
 
@@ -61,6 +61,7 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
 
     connect(): GridHeaderProps {
         return {
+            ...this.props,
             searchValue: ProjectsProvider.getProjectsFilters().search,
             onSearch: this.onSearch,
             onCreateClick: this.handleOnCreateClick,

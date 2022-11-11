@@ -1,9 +1,10 @@
-import { ProjectCard } from './ProjectCard/ProjectCard.model';
+import { Project } from '@roid/models/src/projects.model';
 
 export type ProjectsGridProps = {
     fetchingMore?: boolean;
-    projects?: ProjectCard[];
-    onDeleteProject?: (projectId: string) => void;
+    projects?: Project[];
+    onDeleteProject?: (projectId: number) => void;
+    onClickProject?: (projectId: number) => void;
 };
 
 export interface ProjectsGridState {}

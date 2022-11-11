@@ -20,13 +20,10 @@ return new class extends Migration {
             $table->foreignId('project_id');
             $table->foreignId('user_id');
             $table->timestamps();
-        });
 
-        Schema::table('tasks', function (Blueprint $table) {
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
-
     }
 
     /**

@@ -41,7 +41,7 @@ class TasksProvider {
         }
     }
 
-    static async deleteTask(taskId: string) {
+    static async deleteTask(taskId: number) {
         TasksProvider.stores.TasksStore.setIsLoading(true);
         const response = await DeleteTaskXhr.request({ id: taskId }).catch((error) =>
             ToasterService.addXHRError('Delete Task', error)
@@ -62,7 +62,7 @@ class TasksProvider {
         TasksProvider.stores.TasksStore.set(tasks);
     }
 
-    static removeTask(taskId: string) {
+    static removeTask(taskId: number) {
         const tasks = TasksProvider.getTasks();
         remove(tasks, { id: taskId });
         TasksProvider.setTasks(tasks || []);

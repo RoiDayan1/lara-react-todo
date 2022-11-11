@@ -1,11 +1,9 @@
-export interface ProjectCard {
-    id: string;
-    name: string;
-}
+import { Project } from '@roid/models/src/projects.model';
 
 export type ProjectCardProps = {
-    project: ProjectCard;
-    onDeleteProject?: (projectId: string) => void;
+    project: Project;
+    onDeleteProject?: (projectId: number) => void;
+    onClickProject?: (projectId: number) => void;
 };
 
 export interface ProjectCardState {}

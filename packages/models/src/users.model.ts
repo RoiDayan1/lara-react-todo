@@ -10,7 +10,7 @@ export class NewUser {
 
 export class User {
     @Expose({ name: 'id' })
-    id!: string;
+    id!: number;
 
     @Expose({ name: 'name' })
     name!: string;
