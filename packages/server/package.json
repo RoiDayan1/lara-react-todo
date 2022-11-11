@@ -6,7 +6,7 @@
         "dev": "vite",
         "build": "vite build",
         "start": "php artisan serve --port=3005",
-        "first": "touch database/database.sqlite && php artisan migrate:fresh --seed",
+        "first": "composer install && touch database/database.sqlite && php artisan migrate:fresh --seed --force",
         "migrate": "php artisan migrate",
         "start:prod": ""
     },
