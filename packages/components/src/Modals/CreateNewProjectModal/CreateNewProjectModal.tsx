@@ -32,14 +32,16 @@ class CreateNewProjectModalComponent extends Component<
         }
     };
 
-    rightButtons: BaseModalButton[] = [
-        { label: 'Cancel' },
-        {
-            label: 'Create',
-            onClick: this.onCreate,
-            modalShouldStayOpen: () => !this.isValidForm,
-        },
-    ];
+    get rightButtons(): BaseModalButton[] {
+        return [
+            { label: 'Cancel' },
+            {
+                label: 'Create',
+                onClick: this.onCreate,
+                modalShouldStayOpen: () => !this.isValidForm,
+            },
+        ];
+    }
 
     nameTF = createRef<HTMLInputElement>();
 

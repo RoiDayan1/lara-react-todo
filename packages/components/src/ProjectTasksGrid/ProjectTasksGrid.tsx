@@ -8,13 +8,18 @@ class ProjectTasksGridComponent extends Component<ProjectTasksGridProps, Project
     state: ProjectTasksGridState = {};
 
     render(): ReactNode {
-        const { fetchingMore, tasks, onDeleteTask } = this.props;
+        const { fetchingMore, tasks, onDeleteTask, onClickTask } = this.props;
 
         return (
             <div className={styles.container}>
                 <div className={styles.cardsContainer}>
                     {tasks?.map((task, index) => (
-                        <ProjectTaskCard key={index} task={task} onDeleteTask={onDeleteTask} />
+                        <ProjectTaskCard
+                            key={index}
+                            task={task}
+                            onDeleteTask={onDeleteTask}
+                            onClickTask={onClickTask}
+                        />
                     ))}
                 </div>
                 {fetchingMore && <LinearProgress />}

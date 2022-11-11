@@ -5,13 +5,15 @@ import BaseModal from '../BaseModal';
 import { BaseModalButton } from '../BaseModal.model';
 
 class VerificationModalComponent extends Component<VerificationModalProps, VerificationModalState> {
-    rightButtons: BaseModalButton[] = [
-        { label: this.props.labelNo || 'No' },
-        {
-            label: this.props.labelYes || 'Yes',
-            onClick: this.props.onYes,
-        },
-    ];
+    get rightButtons(): BaseModalButton[] {
+        return [
+            { label: this.props.labelNo || 'No' },
+            {
+                label: this.props.labelYes || 'Yes',
+                onClick: this.props.onYes,
+            },
+        ];
+    }
 
     render(): ReactNode {
         const { message } = this.props;

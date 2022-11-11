@@ -5,6 +5,7 @@ import { ProjectTasksGridProps } from '@roid/components/src/ProjectTasksGrid/Pro
 import TasksProvider from '../../Providers/tasks/TasksProvider';
 import ModalService from '../../Services/ModalService';
 import VerificationModal from '@roid/components/src/Modals/VerificationModal/VerificationModal';
+import ViewTaskModal from '@roid/components/src/Modals/ViewTaskModal/ViewTaskModal';
 
 const stores: Array<BaseStore<any>> = [TasksProvider.stores.TasksStore];
 
@@ -29,12 +30,26 @@ class ProjectTasksGridConnectorComponent extends BaseConnector<
         });
     };
 
+    handleClickTask = async (taskId: number) => {
+        let task = await TasksProvider.IncrementTaskViews(taskId);
+        if (task) {
+            const modal = ModalService.show(ViewTaskModal, {
+                task,
+                onUpdate: async (data) => {
+                    const res = await TasksProvider.updateTask(taskId, data);
+                    res && modal.update({ task: res });
+                },
+            });
+        }
+    };
+
     connect(): ProjectTasksGridProps {
         return {
             ...this.props,
             fetchingMore: TasksProvider.stores.TasksStore.isLoading(),
             tasks: TasksProvider.getTasks(),
             onDeleteTask: this.handleDeleteTask,
+            onClickTask: this.handleClickTask,
         };
     }
 }

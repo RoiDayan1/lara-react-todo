@@ -14,6 +14,7 @@ export type EntitySelectConnectorProps = {
     label?: string;
     error?: boolean;
     helperText?: React.ReactNode;
+    readOnly?: boolean;
 };
 
 class EntitySelectConnectorComponent extends BaseConnector<EntitySelectConnectorProps, EntitySelectProps> {

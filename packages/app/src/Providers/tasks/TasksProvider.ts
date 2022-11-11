@@ -6,6 +6,8 @@ import TasksFiltersStore, { TasksFiltersStoreValue } from './Stores/TasksFilters
 import GetTasksXhr from './Xhrs/GetTasksXhr';
 import CreateTaskXhr from './Xhrs/CreateTaskXhr';
 import DeleteTaskXhr from './Xhrs/DeleteTaskXhr';
+import UpdateTaskXhr from './Xhrs/UpdateTaskXhr';
+import IncrementTaskViewsXhr from './Xhrs/IncrementTaskViewsXhr';
 
 class TasksProvider {
     static stores = {
@@ -23,11 +25,11 @@ class TasksProvider {
         );
     }
 
-    static async fetchSetGetTasks() {
-        TasksProvider.stores.TasksStore.setIsLoading(true);
+    static async fetchSetGetTasks(background = false) {
+        !background && TasksProvider.stores.TasksStore.setIsLoading(true);
         const response = await TasksProvider.fetchTasks();
         TasksProvider.setTasks(response || []);
-        TasksProvider.stores.TasksStore.setIsLoading(false);
+        !background && TasksProvider.stores.TasksStore.setIsLoading(false);
         return response;
     }
 
@@ -39,10 +41,22 @@ class TasksProvider {
             TasksProvider.fetchSetGetTasks().then();
             ToasterService.addSuccess('The task was successfully created');
         }
+        return response;
     }
 
-    static async deleteTask(taskId: number) {
-        TasksProvider.stores.TasksStore.setIsLoading(true);
+    static async updateTask(taskId: number, data: Partial<Task>) {
+        const response = await UpdateTaskXhr.request({ id: taskId, data }).catch((error) =>
+            ToasterService.addXHRError('Update Task', error)
+        );
+        if (response) {
+            TasksProvider.fetchSetGetTasks(true).then();
+            ToasterService.addSuccess('The task was successfully updated');
+        }
+        return response;
+    }
+
+    static async deleteTask(taskId: number, background = false) {
+        !background && TasksProvider.stores.TasksStore.setIsLoading(true);
         const response = await DeleteTaskXhr.request({ id: taskId }).catch((error) =>
             ToasterService.addXHRError('Delete Task', error)
         );
@@ -50,7 +64,18 @@ class TasksProvider {
             TasksProvider.removeTask(taskId);
             ToasterService.addSuccess('The task was successfully deleted');
         }
-        TasksProvider.stores.TasksStore.setIsLoading(false);
+        !background && TasksProvider.stores.TasksStore.setIsLoading(false);
+        return response;
+    }
+
+    static async IncrementTaskViews(taskId: number) {
+        const response = await IncrementTaskViewsXhr.request({ id: taskId }).catch((error) =>
+            ToasterService.addXHRError('Update Task', error)
+        );
+        if (response) {
+            TasksProvider.fetchSetGetTasks(true).then();
+        }
+        return response;
     }
 
     //////////////////////////////////

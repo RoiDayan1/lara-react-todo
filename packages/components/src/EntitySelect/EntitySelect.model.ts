@@ -8,6 +8,7 @@ export type EntitySelectProps = {
     label?: string;
     error?: boolean;
     helperText?: React.ReactNode;
+    readOnly?: boolean;
 };
 
 export interface EntitySelectState {}

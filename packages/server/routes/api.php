@@ -39,5 +39,6 @@ Route::prefix('tasks')->group(function () {
     Route::get('/{task}', [TasksController::class, 'get']);
     Route::put('/{task}', [TasksController::class, 'update']);
     Route::delete('/{task}', [TasksController::class, 'delete']);
+    Route::post('/{task}/view', [TasksController::class, 'view']);
 });
 

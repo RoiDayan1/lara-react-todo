@@ -38,14 +38,16 @@ class CreateNewTaskModalComponent extends Component<CreateNewTaskModalProps, Cre
         }
     };
 
-    rightButtons: BaseModalButton[] = [
-        { label: 'Cancel' },
-        {
-            label: 'Create',
-            onClick: this.onCreate,
-            modalShouldStayOpen: () => !this.isValidForm,
-        },
-    ];
+    get rightButtons(): BaseModalButton[] {
+        return [
+            { label: 'Cancel' },
+            {
+                label: 'Create',
+                onClick: this.onCreate,
+                modalShouldStayOpen: () => !this.isValidForm,
+            },
+        ];
+    }
 
     descriptionTF = createRef<HTMLInputElement>();
 

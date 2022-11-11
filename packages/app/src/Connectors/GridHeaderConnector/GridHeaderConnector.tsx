@@ -9,7 +9,11 @@ import NavigationService, { Routes } from '../../Services/NavigationService';
 import TasksProvider from '../../Providers/tasks/TasksProvider';
 import CreateNewTaskModal from '@roid/components/src/Modals/CreateNewTaskModal/CreateNewTaskModal';
 
-const stores: Array<BaseStore<any>> = [ProjectsProvider.stores.SelectedProjectStore];
+const stores: Array<BaseStore<any>> = [
+    ProjectsProvider.stores.SelectedProjectStore,
+    ProjectsProvider.stores.ProjectsFiltersStore,
+    TasksProvider.stores.TasksFiltersStore,
+];
 
 export type GridHeaderConnectorProps = {};
 
@@ -28,8 +32,13 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
     }
 
     onSearch = async (value: string) => {
-        ProjectsProvider.setProjectsFiltersSearch(value);
-        await ProjectsProvider.fetchSetGetProjects();
+        if (NavigationService.routeIs(Routes.ProjectsManagement)) {
+            ProjectsProvider.setProjectsFiltersSearch(value);
+            await ProjectsProvider.fetchSetGetProjects();
+        } else if (NavigationService.routeIs(Routes.ProjectTasks)) {
+            TasksProvider.setTasksFiltersSearch(value);
+            await TasksProvider.fetchSetGetTasks();
+        }
     };
 
     handleOnCreateClick = () => {
@@ -53,6 +62,13 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
         return '';
     };
 
+    getSearchValue = () => {
+        if (NavigationService.routeIs(Routes.ProjectsManagement))
+            return ProjectsProvider.getProjectsFilters().search;
+        if (NavigationService.routeIs(Routes.ProjectTasks)) return TasksProvider.getTasksFilters().search;
+        return '';
+    };
+
     getCreateLabel = () => {
         if (NavigationService.routeIs(Routes.ProjectsManagement)) return 'Create New Project';
         if (NavigationService.routeIs(Routes.ProjectTasks)) return 'Create New Task';
@@ -62,7 +78,7 @@ class GridHeaderConnectorComponent extends BaseConnector<GridHeaderConnectorProp
     connect(): GridHeaderProps {
         return {
             ...this.props,
-            searchValue: ProjectsProvider.getProjectsFilters().search,
+            searchValue: this.getSearchValue(),
             onSearch: this.onSearch,
             onCreateClick: this.handleOnCreateClick,
             createLabel: this.getCreateLabel(),

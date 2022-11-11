@@ -7,12 +7,12 @@ class EntitySelectComponent extends Component<EntitySelectProps, EntitySelectSta
     uid = uniqueId(this.constructor.name);
 
     render(): ReactNode {
-        const { value = '', items = [], onSelect, label, error, helperText } = this.props;
+        const { value = '', items = [], onSelect, label, error, helperText, readOnly } = this.props;
 
         return (
             <FormControl fullWidth error={error}>
                 <InputLabel id={this.uid}>{label}</InputLabel>
-                <Select labelId={this.uid} value={value}>
+                <Select labelId={this.uid} value={value} inputProps={{ readOnly }}>
                     {items.map((item) => (
                         <MenuItem
                             key={item.key}

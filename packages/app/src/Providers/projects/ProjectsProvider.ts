@@ -26,23 +26,23 @@ class ProjectsProvider {
         );
     }
 
-    static async fetchSetGetProjects() {
-        ProjectsProvider.stores.ProjectsStore.setIsLoading(true);
+    static async fetchSetGetProjects(background = false) {
+        !background && ProjectsProvider.stores.ProjectsStore.setIsLoading(true);
         const response = await ProjectsProvider.fetchProjects();
         ProjectsProvider.setProjects(response || []);
-        ProjectsProvider.stores.ProjectsStore.setIsLoading(false);
+        !background && ProjectsProvider.stores.ProjectsStore.setIsLoading(false);
         return response;
     }
 
-    static async fetchSetGetProject(id: number) {
-        ProjectsProvider.stores.SelectedProjectStore.setIsLoading(true);
+    static async fetchSetGetProject(id: number, background = false) {
+        !background && ProjectsProvider.stores.SelectedProjectStore.setIsLoading(true);
         const response = await GetProjectXhr.request({ id }).catch((error) =>
             ToasterService.addXHRError('Fetch Project', error)
         );
         if (response) {
             ProjectsProvider.stores.SelectedProjectStore.set(response);
         }
-        ProjectsProvider.stores.SelectedProjectStore.setIsLoading(false);
+        !background && ProjectsProvider.stores.SelectedProjectStore.setIsLoading(false);
         return response;
     }
 
@@ -66,8 +66,8 @@ class ProjectsProvider {
         }
     }
 
-    static async deleteProject(projectId: number) {
-        ProjectsProvider.stores.ProjectsStore.setIsLoading(true);
+    static async deleteProject(projectId: number, background = false) {
+        !background && ProjectsProvider.stores.ProjectsStore.setIsLoading(true);
         const response = await DeleteProjectXhr.request({ id: projectId }).catch((error) =>
             ToasterService.addXHRError('Delete Project', error)
         );
@@ -75,7 +75,7 @@ class ProjectsProvider {
             ProjectsProvider.removeProject(projectId);
             ToasterService.addSuccess('The project was successfully deleted');
         }
-        ProjectsProvider.stores.ProjectsStore.setIsLoading(false);
+        !background && ProjectsProvider.stores.ProjectsStore.setIsLoading(false);
     }
 
     //////////////////////////////////

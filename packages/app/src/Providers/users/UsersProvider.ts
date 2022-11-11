@@ -21,11 +21,11 @@ class UsersProvider {
         );
     }
 
-    static async fetchSetGetUsers() {
-        UsersProvider.stores.UsersStore.setIsLoading(true);
+    static async fetchSetGetUsers(background = false) {
+        !background && UsersProvider.stores.UsersStore.setIsLoading(true);
         const response = await UsersProvider.fetchUsers();
         UsersProvider.setUsers(response || []);
-        UsersProvider.stores.UsersStore.setIsLoading(false);
+        !background && UsersProvider.stores.UsersStore.setIsLoading(false);
         return response;
     }
 

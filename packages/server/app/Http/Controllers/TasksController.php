@@ -100,4 +100,17 @@ class TasksController extends Controller
         return $this->success();
     }
 
+    /**
+     * Increment Task views.
+     *
+     * @param Task $task
+     * @return JsonResponse
+     */
+    public function view(Task $task): JsonResponse
+    {
+        $task->increment('views');
+
+        return $this->success($task);
+    }
+
 }
